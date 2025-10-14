@@ -1,0 +1,16 @@
+services:
+  comfyui:
+    image: yanwk/comfyui-boot:cu129-slim
+    volumes:
+      - .:/root/ComfyUI/custom_nodes/comfy_builder_template
+    working_dir: /root/ComfyUI/custom_nodes/comfy_builder_template
+    ports:
+      - "8188:8188"
+    command: sh -c "python3 install.py && bash /runner-scripts/entrypoint.sh"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
