@@ -11,25 +11,25 @@ use std::ops::Deref;
 #[derive(Debug, Default, Clone, Enum)]
 enum Interpolation {
     #[default]
-    #[label = "lanczos3"]
+    #[display_name = "lanczos3"]
     Lanczos3,
 
-    #[label = "point"]
+    #[display_name = "point"]
     Point,
 
-    #[label = "triangle"]
+    #[display_name = "triangle"]
     Triangle,
 
-    #[label = "catrom"]
+    #[display_name = "catrom"]
     Catrom,
 
-    #[label = "mitchell"]
+    #[display_name = "mitchell"]
     Mitchell,
 
-    #[label = "bspline"]
+    #[display_name = "bspline"]
     BSpline,
 
-    #[label = "gaussian"]
+    #[display_name = "gaussian"]
     Gaussian,
 }
 
@@ -183,27 +183,13 @@ impl ResizeImage {
         let output_pixels_per_image = target_width * target_height * CHANNELS;
         let mut output = vec![0.0f32; output_pixels_per_image];
 
-        let mut resizer = resize::new(
-            origin_width,
-            origin_height,
-            target_width,
-            target_height,
-            format,
-            r#type,
-        )?;
+        let mut resizer = resize::new(origin_width, origin_height, target_width, target_height, format, r#type)?;
 
-        let input_rgb: &[Format::InputPixel] = unsafe {
-            std::slice::from_raw_parts(
-                input.as_ptr() as *const Format::InputPixel,
-                input.len() / CHANNELS,
-            )
-        };
+        let input_rgb: &[Format::InputPixel] =
+            unsafe { std::slice::from_raw_parts(input.as_ptr() as *const Format::InputPixel, input.len() / CHANNELS) };
 
         let output_rgb: &mut [Format::OutputPixel] = unsafe {
-            std::slice::from_raw_parts_mut(
-                output.as_mut_ptr() as *mut Format::OutputPixel,
-                output.len() / CHANNELS,
-            )
+            std::slice::from_raw_parts_mut(output.as_mut_ptr() as *mut Format::OutputPixel, output.len() / CHANNELS)
         };
 
         resizer.resize(input_rgb, output_rgb)?;

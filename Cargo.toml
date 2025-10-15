@@ -1,10 +1,10 @@
 [package]
-name = "comfy-builder-template"
+name = "comfy-rusty-nodes"
 version = "0.1.0"
 edition = "2024"
 
 [lib]
-name = "comfy_builder_template"
+name = "comfy_rusty_nodes"
 crate-type = ["cdylib"]
 
 [dependencies]
