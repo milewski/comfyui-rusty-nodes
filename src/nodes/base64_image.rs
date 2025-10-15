@@ -1,6 +1,8 @@
 use base64::Engine;
-use comfy_builder_core::candle::Device;
+use comfy_builder_core::candle::{Device, Tensor, WithDType};
+use comfy_builder_core::numpy::Element;
 use comfy_builder_core::prelude::*;
+use image::DynamicImage;
 use pyo3::exceptions::PyValueError;
 use std::error::Error;
 
@@ -37,10 +39,9 @@ pub struct Output {
 /// iVBORw0KGgoAAAANSUhEUgA...   // raw Base‑64 without header
 /// ```
 #[node(
-    id = "comfy_rusty_nodes.base64_to_image",
     display_name = "Base64 To Image",
     category = "Rusty Nodes / Image",
-    description = "Base64 To Image",
+    description = "Base64 To Image"
 )]
 pub struct Base64ToImage;
 
@@ -62,23 +63,31 @@ impl<'a> Node<'a> for Base64ToImage {
             })?;
 
         let image = image::load_from_memory(&image_bytes)?;
-        let width = image.width() as usize;
-        let height = image.height() as usize;
-        let channels = image.color().channel_count() as usize;
-
-        let pixels = match channels {
-            3 => image.to_rgb32f().to_vec(),
-            4 => image.to_rgba32f().to_vec(),
-            _ => Err(PyValueError::new_err(format!(
-                "Unexpected number of channels, expected 3 or 4 but received {}",
-                channels
-            )))?,
-        };
 
         Ok(Output {
-            image: Image::<f32>::from_raw(pixels, &[1, height, width, channels], &Device::Cpu)?,
+            image: image_to_tensor(image)?,
         })
     }
+}
+
+pub fn image_to_tensor<T: WithDType + Element>(
+    image: DynamicImage,
+) -> Result<Image<T>, Box<dyn Error + Send + Sync>> {
+    let width = image.width() as usize;
+    let height = image.height() as usize;
+    let channels = image.color().channel_count() as usize;
+    let pixels: Vec<f32> = match channels {
+        3 => image.to_rgb32f().to_vec(),
+        4 => image.to_rgba32f().to_vec(),
+        _ => Err(PyValueError::new_err(format!(
+            "Unexpected number of channels, expected 3 or 4 but received {}",
+            channels
+        )))?,
+    };
+
+    let tensor = Tensor::from_vec(pixels, (1, height, width, channels), &Device::Cpu)?;
+
+    Ok(Image::from_tensor(tensor))
 }
 
 /// Helper that strips the typical `data:<mime>;base64,` prefix.
