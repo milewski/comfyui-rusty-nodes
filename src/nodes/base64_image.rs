@@ -7,6 +7,8 @@ use std::error::Error;
 #[derive(NodeInput)]
 pub struct Input {
     #[multiline = true]
+    #[placeholder = "data:image/png;base64,..."]
+    #[tooltip = "Base64‑encoded image data (the optional data:image/...;base64, prefix will be removed automatically)."]
     image: String,
 }
 
@@ -15,7 +17,31 @@ pub struct Output {
     image: Image<f32>,
 }
 
-#[node(category = "Rusty Nodes / Image")]
+/// Base‑64 encoded image data.
+///
+/// The string can contain the full data‑URL header (e.g.
+/// `data:image/png;base64,`) **or** just the raw Base‑64 payload –
+/// either form is accepted.
+/// The `image` crate will read the value and produce a `DynamicImage`.
+///
+/// # Supported formats
+/// PNG, JPEG, GIF, BMP, TIFF, WebP, … – i.e. any format understood by the
+/// `image` crate.
+///
+/// # Example
+/// ```text
+/// data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...
+/// ```
+///
+/// ```text
+/// iVBORw0KGgoAAAANSUhEUgA...   // raw Base‑64 without header
+/// ```
+#[node(
+    id = "comfy_rusty_nodes.base64_to_image",
+    display_name = "Base64 To Image",
+    category = "Rusty Nodes / Image",
+    description = "Base64 To Image",
+)]
 pub struct Base64ToImage;
 
 impl<'a> Node<'a> for Base64ToImage {
@@ -31,7 +57,7 @@ impl<'a> Node<'a> for Base64ToImage {
             .decode(data)
             .map_err(|_| {
                 PyValueError::new_err(
-                    "Could not decode the base64 string, are you sure it is valid?".to_string(),
+                    "Could not decode the base64 string, are you sure it is valid?",
                 )
             })?;
 
@@ -43,7 +69,10 @@ impl<'a> Node<'a> for Base64ToImage {
         let pixels = match channels {
             3 => image.to_rgb32f().to_vec(),
             4 => image.to_rgba32f().to_vec(),
-            _ => unreachable!(),
+            _ => Err(PyValueError::new_err(format!(
+                "Unexpected number of channels, expected 3 or 4 but received {}",
+                channels
+            )))?,
         };
 
         Ok(Output {
