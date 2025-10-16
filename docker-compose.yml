@@ -2,10 +2,8 @@ services:
   comfyui:
     image: yanwk/comfyui-boot:cu129-slim
     volumes:
-      - .:/root/ComfyUI/custom_nodes/comfy_builder_template
-#      - ../comfy-builder-core:/root/ComfyUI/custom_nodes/comfy_builder_template/comfy-builder-core
-#      - ../comfy-builder-macros:/root/ComfyUI/custom_nodes/comfy_builder_template/comfy-builder-macros
-    working_dir: /root/ComfyUI/custom_nodes/comfy_builder_template
+      - .:/root/ComfyUI/custom_nodes/comfyui_rusty_nodes
+    working_dir: /root/ComfyUI/custom_nodes/comfyui_rusty_nodes
     ports:
       - "8188:8188"
     command: sh -c "python3 install.py && bash /runner-scripts/entrypoint.sh"

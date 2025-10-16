@@ -1,5 +1,6 @@
 .idea
 .vscode
+.venv
 /target
 *.zip
 rustup-init.sh

@@ -1,19 +1,17 @@
 [project]
-name = "rusty-nodes"
+name = "comfyui-rusty-nodes"
 description = "A collection of useful custom nodes that help with a wide range of tasks."
-version = "1.0.0"
+version = "0.1.5"
 license = { file = "LICENSE" }
 classifiers = ["Operating System :: OS Independent"]
 
 [project.urls]
-Repository = "https://github.com/milewski/comfy-rusty-nodes"
-Documentation = "https://github.com/milewski/comfy-rusty-nodes/wiki"
-"Bug Tracker" = "https://github.com/milewski/comfy-rusty-nodes/issues"
+Repository = "https://github.com/milewski/comfyui-rusty-nodes"
 
 [tool.comfy]
-PublisherId = "rusty-nodes"
-DisplayName = "rusty-nodes"
-Icon = "https://github.com/milewski/comfy-builder-template/blob/main/icon.png?raw=true"
+PublisherId = "milewski"
+DisplayName = "Rusty Nodes"
+Icon = "https://github.com/milewski/comfyui-rusty-nodes/blob/main/icon.png?raw=true"
 includes = []
 
 [build-system]
