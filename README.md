@@ -1,6 +1,8 @@
 <div align="center">
 
-# ✨ Rusty Nodes [![GitHub Stars](https://img.shields.io/github/stars/milewski/comfy-rusty-nodes?style=social)](https://github.com/milewski/comfy-rusty-nodes)
+<img src="icon.png" width="200" height="200" alt="logo">
+
+# Rusty Nodes [![GitHub Stars](https://img.shields.io/github/stars/milewski/comfy-rusty-nodes?style=social)](https://github.com/milewski/comfy-rusty-nodes)
 
 A collection of useful custom nodes that help with a wide range of tasks.
 
