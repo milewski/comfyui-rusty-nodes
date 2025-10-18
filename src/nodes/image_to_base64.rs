@@ -59,7 +59,7 @@ struct Output {
 )]
 struct ImageToBase64;
 
-impl<'a> Node<'a> for ImageToBase64 {
+impl Node for ImageToBase64 {
     type In = Input;
     type Out = Output;
     type Error = Box<dyn Error + Send + Sync>;
