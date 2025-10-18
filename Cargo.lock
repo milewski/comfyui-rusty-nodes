@@ -215,7 +215,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d1a7f8db2e12ab4c438578fe2b9f47ca75dc4c10306382382b1c9ae75597c659"
 dependencies = [
  "candle-core",
- "comfy-builder-macros",
+ "comfy-builder-macros 0.0.6",
+ "inventory",
+ "num-traits",
+ "numpy",
+ "pyo3",
+]
+
+[[package]]
+name = "comfy-builder-core"
+version = "0.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8780611b243007c45e499b5ef602d3822a95dbb3758cd6ca7ecdd99f91545bae"
+dependencies = [
+ "candle-core",
+ "comfy-builder-macros 0.0.7",
  "inventory",
  "num-traits",
  "numpy",
@@ -235,11 +249,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "comfy-builder-macros"
+version = "0.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ede4f2beb4e39a2d17af7fabd7456a83e43accb4c3f5f5898707387f9412bd7"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "comfyui-rusty-nodes"
 version = "0.1.0"
 dependencies = [
  "base64",
- "comfy-builder-core",
+ "comfy-builder-core 0.0.6",
+ "comfy-builder-core 0.0.7",
  "image",
  "inventory",
  "pyo3",

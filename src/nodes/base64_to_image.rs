@@ -24,7 +24,7 @@ pub struct Output {
 )]
 pub struct Base64ToImage;
 
-impl<'a> Node<'a> for Base64ToImage {
+impl Node for Base64ToImage {
     type In = Input;
     type Out = Output;
     type Error = Box<dyn Error + Send + Sync>;

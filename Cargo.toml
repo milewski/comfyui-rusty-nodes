@@ -8,7 +8,7 @@ name = "comfyui_rusty_nodes"
 crate-type = ["cdylib"]
 
 [dependencies]
-comfy-builder-core = { version = "0.0.6" }
+comfy-builder-core = { version = "0.0.7" }
 pyo3 = "0.26.0"
 inventory = "0.3.21"
 image = { version = "0.25.8", features = ["jpeg", "webp", "png", "gif"] }
