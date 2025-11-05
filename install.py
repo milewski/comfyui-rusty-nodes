@@ -22,7 +22,7 @@ def install_rust():
         os.environ["PATH"] += os.pathsep + os.path.expanduser("~/.cargo/bin")
 
 def build():
-    run_command([sys.executable, "-m", "maturin", "build", "--release", "--features", "extension-module"])
+    run_command([sys.executable, "-m", "maturin", "build", "--release"])
 
 def install_wheels():
     wheels = glob.glob("target/wheels/*.whl")
@@ -39,8 +39,8 @@ def clean_up():
         run_command(["cargo", "clean"])
         run_command(["rm", "rustup-init.sh"])
         print("✅ cargo clean completed")
-    except Exception:
-        pass
+    except FileNotFoundError:
+        print("⚠️ cargo not found (is Rust installed?)")
 
 def generate_init():
     print("📝 Generating __init__.py ...")
