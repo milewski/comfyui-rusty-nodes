@@ -1,6 +1,8 @@
 services:
   comfyui:
-    image: yanwk/comfyui-boot:cu129-slim
+    build:
+      dockerfile: Dockerfile
+      context: .
     volumes:
       - .:/root/ComfyUI/custom_nodes/comfyui_rusty_nodes
     working_dir: /root/ComfyUI/custom_nodes/comfyui_rusty_nodes
