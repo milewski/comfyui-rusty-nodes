@@ -6,13 +6,13 @@ use std::error::Error;
 pub struct Input {
     #[multiline = true]
     #[placeholder = "{ \"key\": \"value\" },..."]
-    #[tooltip = "Base64‑encoded image data."]
+    #[tooltip = "Any JSON string, in any format."]
     json: String,
 }
 
 #[derive(NodeOutput)]
 pub struct Output {
-    #[tooltip = "Base64‑encoded image data."]
+    #[tooltip = "The output value."]
     string: Vec<String>,
 }
 
