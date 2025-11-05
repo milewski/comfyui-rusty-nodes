@@ -262,7 +262,7 @@ dependencies = [
 
 [[package]]
 name = "comfyui-rusty-nodes"
-version = "0.1.0"
+version = "0.1.6"
 dependencies = [
  "base64",
  "comfy-builder-core 0.0.6",
@@ -270,6 +270,7 @@ dependencies = [
  "image",
  "inventory",
  "pyo3",
+ "serde_json",
 ]
 
 [[package]]

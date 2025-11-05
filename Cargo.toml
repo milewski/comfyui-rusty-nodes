@@ -1,6 +1,6 @@
 [package]
 name = "comfyui-rusty-nodes"
-version = "0.1.0"
+version = "0.1.6"
 edition = "2024"
 
 [lib]
@@ -13,6 +13,7 @@ pyo3 = "0.26.0"
 inventory = "0.3.21"
 image = { version = "0.25.8", features = ["jpeg", "webp", "png", "gif"] }
 base64 = "0.22.1"
+serde_json = "1.0.145"
 
 [features]
 extension-module = ["pyo3/extension-module"]
