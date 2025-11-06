@@ -14,6 +14,7 @@ A collection of useful custom nodes that help with a wide range of tasks.
 - `ImageToBase64`: Convert an image into a Base64‑encoded string.
 - `JsonLoader`: Parses any JSON string and exposes the result as a list.
 - `JsonPathExtractor`: Extracts a single value from a JSON string using a JSON Pointer notation.
+- `LoadImageFromPath`: Load an image from a given file path.
 
 ## Join the telegram group
 
