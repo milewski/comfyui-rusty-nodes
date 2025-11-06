@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-rusty-nodes"
 description = "A collection of useful custom nodes that help with a wide range of tasks."
-version = "0.1.7"
+version = "0.1.8"
 license = { file = "LICENSE" }
 classifiers = ["Operating System :: OS Independent"]
 
