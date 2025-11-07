@@ -139,8 +139,7 @@ def build():
     Build the wheel using maturin.  `maturin` is installed automatically
     below if missing.
     """
-    run_command([sys.executable, "-m", "maturin", "build", "--release"])
-
+    run_command([sys.executable, "-m", "maturin", "build", "--release", "--features", "extension-module"])
 
 # --------------------------------------------------------------------------- #
 def install_wheels():
