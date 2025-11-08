@@ -187,8 +187,15 @@ def generate_init():
     cargo_toml = "Cargo.toml"
 
     try:
-        with open(cargo_toml, "r", encoding="utf-8") as f:
-            crate_name = tomllib.load(f).get("lib", {}).get("name")
+        # tomllib (stdlib, Python ≥ 3.11) expects a binary file; the third‑party
+        # toml library expects a text file. Handle both cleanly.
+        if getattr(tomllib, "__name__", "") == "tomllib":
+            with open(cargo_toml, "rb") as f:
+                data = tomllib.load(f)
+        else:
+            with open(cargo_toml, "r", encoding="utf-8") as f:
+                data = tomllib.load(f)
+        crate_name = data.get("lib", {}).get("name")
     except Exception as e:
         print(f"⚠️  Failed to read {cargo_toml}: {e}")
         return
