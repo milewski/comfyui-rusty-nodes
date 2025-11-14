@@ -8,15 +8,22 @@ struct Input {
     to: String,
 }
 
-#[node(category = "Rusty Nodes / Utilities", description = "Rename a file.")]
+#[derive(NodeOutput)]
+pub struct Output {
+    output: String,
+}
+
+#[node(category = "Rusty Nodes / Utility", description = "Rename a file.")]
 struct RenameFile;
 
 impl Node for RenameFile {
     type In = Input;
-    type Out = ();
+    type Out = Output;
     type Error = Box<dyn Error + Send + Sync>;
 
     fn execute(&self, input: Self::In) -> Result<Self::Out, Self::Error> {
-        Ok(fs::rename(input.from, input.to)?)
+        fs::rename(input.from, &input.to)?;
+
+        Ok(Output { output: input.to })
     }
 }
